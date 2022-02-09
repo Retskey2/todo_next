@@ -20,7 +20,7 @@ export const todoSlice = createSlice({
             }
         },
         removeTodo(state, action) {
-
+            delete state.todo[action.payload]
         },
     },
 
