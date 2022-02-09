@@ -4,26 +4,36 @@ import {HYDRATE} from "next-redux-wrapper";
 export const todoSlice = createSlice({
     name: 'todo',
     initialState: {
-        todos: ['Изучить фреймворк', 'Понять и простить', 'изучить контент'],
+        todo: {
+            1: {id: 1, message: "python"},
+            2: {id: 2, message: "react"},
+            3: {id: 3, message: "javaScript"}
+        }
     },
     reducers: {
         addTodo(state, action) {
-            state.todos.push(action.payload)
+            const newId = Object.keys(state.todo).length + 1;
+            console.log(newId)
+            state.todo[newId] = {
+                id: newId,
+                message: action.payload
+            }
         },
         removeTodo(state, action) {
-            state.todos.push(action.payload)
+
         },
     },
+
     extraReducers: {
-        [HYDRATE]: (state,action) => {
+        [HYDRATE]: (state, action) => {
             return {
                 ...state,
-                ...action.payload.todos,
+                ...action.payload.todo,
             }
         }
     }
 })
 
-export const {addTodo} = todoSlice.actions
+export const {addTodo, removeTodo} = todoSlice.actions
 export const selectTodoData = (state) => state.todo;
 export const todoReducer = todoSlice.reducer;

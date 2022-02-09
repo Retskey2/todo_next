@@ -1,16 +1,31 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.scss'
 import Image from "next/image";
-import deleteIcon from "../public/delete.png"
 import plus from "../public/plus.png"
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
-import {addTodo, selectTodoData} from "../redux/slices/todo";
+import {addTodo, removeTodo, selectTodoData} from "../redux/slices/todo";
 import {useRef} from "react";
+import deleteIcon from "../public/delete.png"
 
 export default function Home() {
     const refInput = useRef()
     const todoData = useAppSelector(selectTodoData)
     const dispatch = useAppDispatch();
+
+    function addTodoApp() {
+        const value = refInput.current.value
+        if (value !== '') {
+            dispatch(addTodo(value))
+        }
+    }
+
+    function deleteTodoApp(id) {
+        if (id !== '') {
+            dispatch(removeTodo(id))
+        }
+    }
+
+
     return (
         <div>
             <Head>
@@ -21,8 +36,8 @@ export default function Home() {
             <div className={styles.wrapper}>
                 <div className={styles.head}>Todo App</div>
                 <div className={styles.inputMain}>
-                    <input ref={refInput} type="text"  placeholder="Todo.." className={styles.input}/>
-                    <div className={styles.AddBtn} onClick={() => dispatch(addTodo(refInput.current.value))}>
+                    <input ref={refInput} type="text" placeholder="Todo.." className={styles.input}/>
+                    <div className={styles.AddBtn} onClick={addTodoApp}>
                         <Image
                             src={plus}
                             width={24}
@@ -31,16 +46,26 @@ export default function Home() {
                         </Image>
                     </div>
                 </div>
-                {todoData.todos.map((todo) =>
-                    <div className={styles.todo} key={todo}>
-                        {todo}
-                        <Image className={styles.image}
-                               src={deleteIcon}
-                               width={32}
-                               height={32}
-                        />
-                    </div>)}
+                {Object.entries(todoData.todo)
+                    .map(([key, value]) => {
+                        return (
+                            <div className={styles.todo} key={key}>
+                                {value.message}
+                                <Image
+                                    onClick={() => {
+                                        deleteTodoApp(key)
+                                    }}
+                                    className={styles.image}
+                                    src={deleteIcon}
+                                    width={32}
+                                    height={32}
+                                />
+                            </div>
+                        )
+                    })
+                }
             </div>
         </div>
     )
 }
+
