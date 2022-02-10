@@ -6,25 +6,26 @@ import {useAppDispatch, useAppSelector} from "../redux/hooks";
 import {addTodo, removeTodo, selectTodoData} from "../redux/slices/todo";
 import {useRef} from "react";
 import deleteIcon from "../public/delete.png"
+import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
+import React from "react";
+import TodoList from "../components/TodoList";
 
 export default function Home() {
     const refInput = useRef()
-    const todoData = useAppSelector(selectTodoData)
     const dispatch = useAppDispatch();
-
     function addTodoApp() {
         const value = refInput.current.value
         if (value !== '') {
             dispatch(addTodo(value))
+            refInput.current.value = ''
         }
     }
 
-    function deleteTodoApp(id) {
-        if (id !== '') {
-            dispatch(removeTodo(id))
-        }
-    }
+    const [isBrowser, setIsBrowser] = React.useState(false);
 
+    React.useEffect(() => {
+        setIsBrowser(process.browser);
+    }, [])
 
     return (
         <div>
@@ -38,32 +39,10 @@ export default function Home() {
                 <div className={styles.inputMain}>
                     <input ref={refInput} type="text" placeholder="Todo.." className={styles.input}/>
                     <div className={styles.AddBtn} onClick={addTodoApp}>
-                        <Image
-                            src={plus}
-                            width={24}
-                            height={24}
-                        >
-                        </Image>
+                        <Image src={plus} width={24} height={24}/>
                     </div>
                 </div>
-                {Object.entries(todoData.todo)
-                    .map(([key, value]) => {
-                        return (
-                            <div className={styles.todo} key={key}>
-                                {value.message}
-                                <Image
-                                    onClick={() => {
-                                        deleteTodoApp(key)
-                                    }}
-                                    className={styles.image}
-                                    src={deleteIcon}
-                                    width={32}
-                                    height={32}
-                                />
-                            </div>
-                        )
-                    })
-                }
+                {isBrowser ? <TodoList/> : null}
             </div>
         </div>
     )

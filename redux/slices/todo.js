@@ -4,11 +4,7 @@ import {HYDRATE} from "next-redux-wrapper";
 export const todoSlice = createSlice({
     name: 'todo',
     initialState: {
-        todo: [
-            {message: "python"},
-            {message: "react"},
-            {message: "javaScript"}
-        ]
+        todo: []
     },
     reducers: {
         addTodo(state, action) {
