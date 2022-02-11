@@ -12,6 +12,7 @@ export default function Home() {
     const refInput = useRef()
     const dispatch = useAppDispatch();
     const [isBrowser, setIsBrowser] = React.useState(false);
+    const todoData = useAppSelector(selectTodoData)
 
     React.useEffect(() => {
         setIsBrowser(process.browser);
@@ -19,6 +20,7 @@ export default function Home() {
 
     function addTodoApp() {
         const value = refInput.current.value
+        console.log(todoData)
         if (value !== '') {
             dispatch(addTodo(value))
             refInput.current.value = ''
