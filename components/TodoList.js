@@ -2,23 +2,25 @@ import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import styles from "../styles/Home.module.scss";
 import Image from "next/image";
 import deleteIcon from "../public/delete.png";
-import React from "react";
-import {addTodo, removeTodo, selectTodoData} from "../redux/slices/todo";
+import React, {useEffect} from "react";
+import {removeTodo, selectTodoData} from "../redux/slices/todo";
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
 
 export default function TodoList() {
     const todoData = useAppSelector(selectTodoData)
     const dispatch = useAppDispatch();
+    const Todos = todoData.todo
+    const [characters, updateCharacters] = React.useState([])
 
-
-    const [characters, updateCharacters] = React.useState(todoData.todo)
+    useEffect(()=> {
+        updateCharacters(Todos)
+    },[todoData])
 
     function handleOnDragEnd(result) {
         if (!result.destination) return;
         const items = Array.from(characters)
         const [reorderedItem] = items.splice(result.source.index, 1)
         items.splice(result.destination.index, 0, reorderedItem)
-        console.log(items)
         updateCharacters(items)
     }
 
@@ -34,7 +36,7 @@ export default function TodoList() {
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
                         {todoData.todo.length >= 1 ?
-                            Object.entries(todoData.todo)
+                            Object.entries(characters)
                                 .map(([key, value], index) => {
                                     return (
                                         <Draggable key={key} draggableId={key} index={index}>

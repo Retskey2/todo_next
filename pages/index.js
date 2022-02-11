@@ -3,16 +3,20 @@ import styles from '../styles/Home.module.scss'
 import Image from "next/image";
 import plus from "../public/plus.png"
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
-import {addTodo, removeTodo, selectTodoData} from "../redux/slices/todo";
+import {addTodo, selectTodoData} from "../redux/slices/todo";
 import {useRef} from "react";
-import deleteIcon from "../public/delete.png"
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import React from "react";
 import TodoList from "../components/TodoList";
 
 export default function Home() {
     const refInput = useRef()
     const dispatch = useAppDispatch();
+    const [isBrowser, setIsBrowser] = React.useState(false);
+
+    React.useEffect(() => {
+        setIsBrowser(process.browser);
+    }, [])
+
     function addTodoApp() {
         const value = refInput.current.value
         if (value !== '') {
@@ -20,12 +24,6 @@ export default function Home() {
             refInput.current.value = ''
         }
     }
-
-    const [isBrowser, setIsBrowser] = React.useState(false);
-
-    React.useEffect(() => {
-        setIsBrowser(process.browser);
-    }, [])
 
     return (
         <div>
