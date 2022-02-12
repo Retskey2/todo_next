@@ -1,10 +1,10 @@
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import styles from "../styles/Home.module.scss";
+import styles from "./TodoList.module.scss"
 import Image from "next/image";
-import deleteIcon from "../public/delete.png";
-import React, {useEffect, useState} from "react";
-import {removeTodo, returnTodo, selectTodoData} from "../redux/slices/todo";
-import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import deleteIcon from "../../public/delete.png";
+import React from "react";
+import {completeTodo, removeTodo, returnTodo, selectTodoData} from "../../redux/slices/todo";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 
 export default function TodoList() {
     const todoData = useAppSelector(selectTodoData)
@@ -16,6 +16,14 @@ export default function TodoList() {
         const [reorderedItem] = items.splice(result.source.index, 1)
         items.splice(result.destination.index, 0, reorderedItem)
         dispatch(returnTodo(items))
+    }
+
+    function handleViewCheckbox(id) {
+        if(todoData.todo[id].progress) {
+            console.log('В стопку!1')
+        }
+        else
+        dispatch(completeTodo(id))
     }
 
     function deleteTodoApp(id) {
@@ -38,11 +46,15 @@ export default function TodoList() {
                                                 <div className={styles.todo}
                                                      key={key} {...provided.draggableProps} {...provided.dragHandleProps}
                                                      ref={provided.innerRef}>
-                                                    {value.message}
+                                                    <div className={styles.todo__label}>
+                                                        <input type="checkbox"
+                                                               checked={todoData.todo[key].progress}
+                                                               onChange={() => handleViewCheckbox(key)}
+                                                        />
+                                                        {value.message}
+                                                    </div>
                                                     <Image
-                                                        onClick={() => {
-                                                            deleteTodoApp(key)
-                                                        }}
+                                                        onClick={() => deleteTodoApp(key)}
                                                         className={styles.image}
                                                         src={deleteIcon}
                                                         width={32}
@@ -53,7 +65,7 @@ export default function TodoList() {
                                         </Draggable>
                                     )
                                 })
-                            : <div className={styles.head}>У вас нету дел 🙁</div>
+                            : <div className={styles.text}>У вас нету дел 🙁</div>
                         } {provided.placeholder}
                     </div>
                 )}

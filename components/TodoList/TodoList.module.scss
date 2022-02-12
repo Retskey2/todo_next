@@ -1,0 +1,38 @@
+.todo {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  opacity: 0.7;
+  margin-bottom: 15px;
+  background: #FFFFFF;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  border-left: #FB7100 6px solid;
+
+  &__label {
+    display: flex;
+    align-items: center;
+
+    input {
+      margin-right: 10px;
+      zoom: 1.8;
+    }
+  }
+
+  .image {
+    position: absolute;
+    bottom: -1000px;
+    cursor: pointer;
+  }
+}
+
+.text {
+  font-weight: 600;
+  font-size: 45px;
+  display: flex;
+  justify-content: center;
+  margin: 15px auto;
+  color: orange;
+}
