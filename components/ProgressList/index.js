@@ -6,20 +6,20 @@ import React from "react";
 import {completeTodo, removeTodo, returnTodo, selectTodoData} from "../../redux/slices/todo";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 
-export default function TodoList() {
+export default function ProgressList() {
     const todoData = useAppSelector(selectTodoData)
     const dispatch = useAppDispatch();
 
     function handleOnDragEnd(result) {
         if (!result.destination) return;
-        const items = Array.from(todoData.todo)
+        const items = Array.from(todoData.progressTodo)
         const [reorderedItem] = items.splice(result.source.index, 1)
         items.splice(result.destination.index, 0, reorderedItem)
         dispatch(returnTodo(items))
     }
 
     function handleViewCheckbox(id) {
-        if(todoData.todo[id].progress) {
+        if(todoData.progressTodo[id].progress) {
             console.log('В стопку!1')
         }
         else
@@ -36,9 +36,9 @@ export default function TodoList() {
         <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="todos">
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {todoData.todo.length >= 1 ?
-                            Object.entries(todoData.todo)
+                    <div {...provided.droppableProps} ref={provided.innerRef} className={styles.wrapper}>
+                        {todoData.progressTodo.length >= 1 ?
+                            Object.entries(todoData.progressTodo)
                                 .map(([key, value], index) => {
                                     return (
                                         <Draggable key={key} draggableId={key} index={index}>
@@ -48,7 +48,7 @@ export default function TodoList() {
                                                      ref={provided.innerRef}>
                                                     <div className={styles.todo__label}>
                                                         <input type="checkbox"
-                                                               checked={todoData.todo[key].progress}
+                                                               checked={todoData.progressTodo[key].progress}
                                                                onChange={() => handleViewCheckbox(key)}
                                                         />
                                                         {value.message}

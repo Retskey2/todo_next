@@ -1,3 +1,9 @@
+.wrapper {
+  overflow:hidden;
+  overflow-y:scroll;
+  max-height: 600px;
+}
+
 .todo {
   padding: 14px;
   display: flex;

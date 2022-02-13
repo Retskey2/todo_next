@@ -4,20 +4,23 @@ import {HYDRATE} from "next-redux-wrapper";
 export const todoSlice = createSlice({
     name: 'todo',
     initialState: {
-        todo: [{message: "Ваша первая задача", progress: false}],
+        progressTodo: [{message: "Ваша первая задача", progress: false}],
+        completeTodo: [{message: "Задача выполнена", progress: true}]
     },
     reducers: {
         addTodo: (state, action) => {
-            state.todo.unshift({message: action.payload, progress: false})
+            state.progressTodo.unshift({message: action.payload, progress: false})
         },
         removeTodo: (state, action) => {
-            state.todo.splice(action.payload, 1)
+            state.progressTodo.splice(action.payload, 1)
         },
         completeTodo: (state, action) => {
-            state.todo[action.payload].progress = !state.todo[action.payload].progress
+            state.progressTodo[action.payload].progress = !state.progressTodo[action.payload].progress
+            state.completeTodo.push(state.progressTodo[action.payload])
+            state.progressTodo.splice(action.payload, 1)
         },
         returnTodo: (state, action) => {
-            state.todo = action.payload
+            state.progressTodo = action.payload
         },
     },
 
@@ -25,7 +28,8 @@ export const todoSlice = createSlice({
         [HYDRATE]: (state, action) => {
             return {
                 ...state,
-                ...action.payload.todo,
+                ...action.payload.progressTodo,
+                ...action.payload.completeTodo,
             }
         }
     }

@@ -11,55 +11,5 @@
   margin-top: 10px;
   background: #F4F4F4;
   min-height: 100vh;
-
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 45px;
-    width: 500px;
-    height: auto;
-
-    .title {
-      font-weight: 600;
-      font-size: 45px;
-      display: flex;
-      justify-content: center;
-      margin: 15px auto;
-      color: orange;
-    }
-
-    .form {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .addbtn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 30px;
-        background: #FB7100;
-        color: #FFFFFF;
-        height: 55px;
-        width: 65px;
-        margin-bottom: 15px;
-        cursor: pointer;
-      }
-
-      .input {
-        width: 100%;
-        background: #FFFFFF;
-        opacity: 0.6;
-        font-size: 22px;
-        height: 55px;
-        padding: 15px;
-        outline: none;
-        margin-bottom: 15px;
-        border: 0.5px gray solid;
-      }
-    }
-  }
 }
 

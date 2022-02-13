@@ -1,22 +1,8 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 45px;
-  width: 500px;
-  height: auto;
-  background: #F4F4F4;
-
-  .title {
-    font-weight: 600;
-    font-size: 45px;
-    display: flex;
-    justify-content: center;
-    margin: 15px auto;
-    color: orange;
-  }
+  overflow:hidden;
+  overflow-y:scroll;
+  max-height: 600px;
 }
-
 .todo {
   padding: 14px;
   display: flex;
@@ -47,3 +33,11 @@
   }
 }
 
+.text {
+  font-weight: 600;
+  font-size: 45px;
+  display: flex;
+  justify-content: center;
+  margin: 15px auto;
+  color: orange;
+}
