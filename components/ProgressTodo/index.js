@@ -4,7 +4,7 @@ import plus from "../../public/plus.png";
 import React, {useRef} from "react";
 import {useAppDispatch} from "../../redux/hooks";
 import {addTodo} from "../../redux/slices/todo";
-import ProgressList from "../ProgressList";
+import ProgressList from "./ProgressList";
 
 export default function ProgressTodo() {
     const refInput = useRef()

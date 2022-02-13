@@ -1,6 +1,6 @@
 import styles from "./CompleteTodo.module.scss"
 import React from "react";
-import CompleteList from "../CompleteList";
+import CompleteList from "./CompleteList";
 
 export default function CompleteTodo() {
 

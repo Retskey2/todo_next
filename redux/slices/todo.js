@@ -14,6 +14,9 @@ export const todoSlice = createSlice({
         removeTodo: (state, action) => {
             state.progressTodo.splice(action.payload, 1)
         },
+        removeCompleteTodo: (state, action) => {
+            state.completeTodo.splice(action.payload, 1)
+        },
         completeTodo: (state, action) => {
             state.progressTodo[action.payload].progress = !state.progressTodo[action.payload].progress
             state.completeTodo.push(state.progressTodo[action.payload])
@@ -35,7 +38,7 @@ export const todoSlice = createSlice({
     }
 })
 
-export const {addTodo, removeTodo, returnTodo, completeTodo} = todoSlice.actions
+export const {addTodo, removeTodo, returnTodo, completeTodo, removeCompleteTodo} = todoSlice.actions
 
 export const selectTodoData = (state) => state.todo;
 

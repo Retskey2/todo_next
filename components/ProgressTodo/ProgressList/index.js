@@ -1,10 +1,10 @@
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import styles from "./TodoList.module.scss"
 import Image from "next/image";
-import deleteIcon from "../../public/delete.png";
+import deleteIcon from "../../../public/delete.png";
 import React from "react";
-import {completeTodo, removeTodo, returnTodo, selectTodoData} from "../../redux/slices/todo";
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {completeTodo, removeTodo, returnTodo, selectTodoData} from "../../../redux/slices/todo";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 
 export default function ProgressList() {
     const todoData = useAppSelector(selectTodoData)
@@ -19,11 +19,10 @@ export default function ProgressList() {
     }
 
     function handleViewCheckbox(id) {
-        if(todoData.progressTodo[id].progress) {
+        if (todoData.progressTodo[id].progress) {
             console.log('В стопку!1')
-        }
-        else
-        dispatch(completeTodo(id))
+        } else
+            dispatch(completeTodo(id))
     }
 
     function deleteTodoApp(id) {

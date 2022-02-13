@@ -30,16 +30,6 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   border-left: #FB7100 6px solid;
 
-  &__label {
-    display: flex;
-    align-items: center;
-
-    input {
-      margin-right: 10px;
-      zoom: 1.8;
-    }
-  }
-
   .image {
     position: absolute;
     bottom: -1000px;
